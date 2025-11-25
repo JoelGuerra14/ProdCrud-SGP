@@ -1,6 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
+using SGP.Application.Interfaces;
+using SGP.Application.Services;
+using SGP.Persistence;
 using SGP.Persistence.Db;
+using System;
 
 namespace SGP.Api
 {
@@ -10,10 +14,14 @@ namespace SGP.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<Context>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connectionString));
 
             // Add services to the container.
+
+            builder.Services.AddTransient<IProductRepository, ProductRepository>();
+            builder.Services.AddTransient<IProductService, ProductService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
