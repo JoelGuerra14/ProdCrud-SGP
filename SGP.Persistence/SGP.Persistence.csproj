@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SGP.Application\SGP.Application.csproj" />
     <ProjectReference Include="..\SGP.Domain\SGP.Domain.csproj" />
   </ItemGroup>
 
