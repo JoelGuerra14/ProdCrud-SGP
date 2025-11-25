@@ -86,5 +86,19 @@ namespace SGP.Application.Services
 
             return updateResult;
         }
+
+        public async Task<OperationResult> DeleteAsync(int id)
+        {
+            _logger.LogInformation($"Solicitud de eliminación para producto ID: {id}");
+
+            var result = await _repository.DeleteAsync(id);
+
+            if (result.IsSuccess)
+                _logger.LogInformation($"Producto ID {id} eliminado (Soft Delete).");
+            else
+                _logger.LogWarning($"Fallo al eliminar producto ID {id}: {result.Message}");
+
+            return result;
+        }
     }
 }

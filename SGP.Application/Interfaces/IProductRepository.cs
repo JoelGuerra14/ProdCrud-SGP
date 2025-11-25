@@ -14,5 +14,6 @@ namespace SGP.Application.Interfaces
         Task<OperationResult> GetByIdAsync(int id);
         Task<OperationResult> CreateAsync(Product entity);
         Task<OperationResult> UpdateAsync(Product entity);
+        Task<OperationResult> DeleteAsync(int id);
     }
 }
