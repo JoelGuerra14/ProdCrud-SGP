@@ -61,5 +61,30 @@ namespace SGP.Application.Services
 
             return result;
         }
+
+        public async Task<OperationResult> UpdateAsync(int id, ProductDTO dto)
+        {
+            _logger.LogInformation($"Iniciando actualización de producto ID: {id}");
+
+
+            var result = await _repository.GetByIdAsync(id);
+            if (!result.IsSuccess)
+            {
+                _logger.LogWarning($"No se pudo actualizar. Producto ID {id} no encontrado.");
+                return result;
+            }
+
+            var product = (Product)result.Data;
+
+            product.Nombre = dto.Nombre;
+            product.Descripcion = dto.Descripcion;
+            product.Precio = dto.Precio;
+            product.Stock = dto.Stock;
+
+            var updateResult = await _repository.UpdateAsync(product);
+            _logger.LogInformation($"Producto ID {id} actualizado correctamente.");
+
+            return updateResult;
+        }
     }
 }

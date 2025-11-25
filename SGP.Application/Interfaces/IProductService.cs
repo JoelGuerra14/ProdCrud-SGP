@@ -13,5 +13,6 @@ namespace SGP.Application.Interfaces
         Task<OperationResult> GetAllAsync();
         Task<OperationResult> GetByIdAsync(int id);
         Task<OperationResult> CreateAsync(ProductDTO dto);
+        Task<OperationResult> UpdateAsync(int id, ProductDTO dto);
     }
 }

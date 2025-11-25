@@ -67,5 +67,20 @@ namespace SGP.Persistence
                 return OperationResult.Failure($"Error al crear: {ex.Message}");
             }
         }
+
+        public async Task<OperationResult> UpdateAsync(Product entity)
+        {
+            try
+            {
+                _context.Products.Update(entity);
+                await _context.SaveChangesAsync();
+                return OperationResult.Success("Producto actualizado", entity);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error en UpdateAsync");
+                return OperationResult.Failure($"Error al actualizar: {ex.Message}");
+            }
+        }
     }
 }
