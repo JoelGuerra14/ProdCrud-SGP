@@ -1,4 +1,5 @@
 ﻿using SGP.Domain.Base;
+using SGP.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace SGP.Application.Interfaces
     {
         Task<OperationResult> GetAllAsync();
         Task<OperationResult> GetByIdAsync(int id);
+        Task<OperationResult> CreateAsync(Product entity);
     }
 }
