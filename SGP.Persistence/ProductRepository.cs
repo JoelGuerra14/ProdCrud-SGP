@@ -82,5 +82,27 @@ namespace SGP.Persistence
                 return OperationResult.Failure($"Error al actualizar: {ex.Message}");
             }
         }
+        public async Task<OperationResult> DeleteAsync(int id)
+        {
+            try
+            {
+                var entity = await _context.Products.FindAsync(id);
+
+                if (entity == null || entity.IsDeleted)
+                    return OperationResult.Failure("El producto no existe.");
+
+                entity.IsDeleted = true;
+
+                _context.Products.Update(entity);
+                await _context.SaveChangesAsync();
+
+                return OperationResult.Success("Producto eliminado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error en DeleteAsync {id}");
+                return OperationResult.Failure($"Error al eliminar: {ex.Message}");
+            }
+        }
     }
 }
