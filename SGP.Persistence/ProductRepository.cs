@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SGP.Application.Interfaces;
 using SGP.Domain.Base;
+using SGP.Domain.Entities;
 using SGP.Persistence.Db;
 
 namespace SGP.Persistence
@@ -48,6 +49,22 @@ namespace SGP.Persistence
             {
                 _logger.LogError(ex, $"Error en GetByIdAsync {id}");
                 return OperationResult.Failure($"Error: {ex.Message}");
+            }
+        }
+
+        public async Task<OperationResult> CreateAsync(Product entity)
+        {
+            try
+            {
+                entity.IsDeleted = false;
+                await _context.Products.AddAsync(entity);
+                await _context.SaveChangesAsync();
+                return OperationResult.Success("Producto creado", entity);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error en CreateAsync");
+                return OperationResult.Failure($"Error al crear: {ex.Message}");
             }
         }
     }
