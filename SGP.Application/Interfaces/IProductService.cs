@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SGP.Application.Interfaces
 {
-    internal interface IProductService
+    public interface IProductService
     {
         Task<OperationResult> GetAllAsync();
         Task<OperationResult> GetByIdAsync(int id);
